@@ -1,11 +1,11 @@
 name: cherry_pick
 
 on:
-  pull_request_target:
+  pull_request:
     branches:
       - main
-    types:
-      - labeled
+    types: ['closed']
+
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -13,11 +13,8 @@ env:
 jobs:
   cherry_pick_release_v1_0:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # Allows the GITHUB_TOKEN to write to the repository
-      pull-requests: write
     name: Cherry pick into release-v1.0
-    if: ${{ contains(github.event.pull_request.labels.*.name, 'cherry-pick-v1') }}
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'release-v1.0') && github.event.pull_request.merged == true }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
