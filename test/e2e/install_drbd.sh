@@ -6,4 +6,6 @@
 #    -n hwameistor --create-namespace \
 #    --set imagePullPolicy=Always
 
+
+
 echo "drbd is pre-installed"
